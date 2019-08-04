@@ -280,6 +280,7 @@ h1, h2, h3, h4, h5, h6, figure {
 
 #fh5co-about,
 #fh5co-resume,
+#fh5co-skills,
 #fh5co-started,
 #fh5co-work,
 #fh5co-blog,
@@ -288,13 +289,6 @@ h1, h2, h3, h4, h5, h6, figure {
   padding: 7em 0;
   clear: both;
 }
-#fh5co-skills{
-  background: #4d4d4d;
-  color: #ffffff;
-  padding: 7em 0;
-  clear: both;
-}
-
 @media screen and (max-width: 768px) {
   #fh5co-about,
   #fh5co-resume,
@@ -422,9 +416,6 @@ h1, h2, h3, h4, h5, h6, figure {
   margin-bottom: 20px;
   line-height: 1.5;
   color: #000;
-}
-.fh5co-heading-light h2 {
-  color: #fff;
 }
 .fh5co-heading p {
   font-size: 18px;
@@ -699,7 +690,6 @@ h1, h2, h3, h4, h5, h6, figure {
   margin: 0 auto 40px auto;
   position: relative;
   text-align: center;
-  color: #fff;
 }
 .chart span {
   position: absolute;
