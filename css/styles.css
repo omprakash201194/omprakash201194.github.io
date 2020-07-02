@@ -10134,6 +10134,11 @@ section.resume-section .resume-section-content {
   }
 }
 
+.work .project {
+  height: 270px;
+  width: 115%;
+  padding: 10px 10px;
+}
 
 .work {
   background-size: cover;
@@ -10141,7 +10146,7 @@ section.resume-section .resume-section-content {
   background-repeat: no-repeat;
   position: relative;
   height: 270px;
-  width: 115%;
+  width: 100%;
   border: 10px;
   display: table;
   overflow: hidden;
