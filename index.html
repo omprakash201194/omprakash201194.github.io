@@ -1,595 +1,701 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <title>Omprakash Gautam | Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omprakash Gautam — Lead Backend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111010;
+    --bg2: #181717;
+    --bg3: #1f1e1e;
+    --fg: #ede8e0;
+    --fg2: #a09890;
+    --fg3: #5a5450;
+    --accent: oklch(72% 0.16 55);
+    --accent-dim: oklch(72% 0.16 55 / 0.15);
+    --accent-mid: oklch(72% 0.16 55 / 0.4);
+    --border: #2a2826;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
 
-  <!-- mobile responsive meta -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- ** Plugins Needed for the Project ** -->
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-  <!-- slick slider -->
-  <link rel="stylesheet" href="plugins/slick/slick.css">
-  <!-- themefy-icon -->
-  <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+  html { scroll-behavior: smooth; }
 
-  <!-- Main Stylesheet -->
-  <link href="css/style.css" rel="stylesheet">
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    font-size: 16px;
+    background-image: radial-gradient(circle, #2a2826 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
 
-  <!--Favicon-->
-  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+    height: 64px;
+    background: oklch(8% 0.005 30 / 0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--fg);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--fg2);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
 
+  /* ── LAYOUT ── */
+  section { padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 4rem); }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::after {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 1px;
+    background: var(--accent-mid);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, oklch(72% 0.16 55 / 0.06) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 1.05;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+  .hero-name em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-tagline {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--fg2);
+    max-width: 560px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: var(--sans);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0a;
+  }
+  .btn-primary:hover { filter: brightness(1.12); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--fg3); background: var(--bg3); }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em;
+    color: var(--fg3); text-transform: uppercase;
+    animation: bob 2.5s ease-in-out infinite;
+  }
+  .hero-scroll-hint::after {
+    content: '';
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--fg3), transparent);
+  }
+  @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+  }
+  .about-text p {
+    color: var(--fg2);
+    font-weight: 300;
+    margin-bottom: 1rem;
+    font-size: 0.97rem;
+  }
+  .about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 2rem;
+  }
+  .stat {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg3);
+    transition: border-color 0.2s;
+  }
+  .stat:hover { border-color: var(--fg3); }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .stat-label { font-size: 0.82rem; color: var(--fg2); font-weight: 400; }
+
+  /* ── EXPERIENCE ── */
+  .timeline { position: relative; padding-left: 1.5rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .exp-group { margin-bottom: 3.5rem; }
+  .exp-company {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .exp-company-tenure {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+  .exp-role {
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg2);
+    position: relative;
+  }
+  .exp-role::before {
+    content: '';
+    position: absolute;
+    left: -1.6rem; top: 50%;
+    transform: translateY(-50%);
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--fg3);
+  }
+  .exp-role:first-of-type::before { border-color: var(--accent); background: var(--accent-dim); }
+  .exp-role-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--fg);
+    margin-bottom: 0.2rem;
+  }
+  .exp-role-period {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--fg3);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .exp-role-desc {
+    font-size: 0.87rem;
+    color: var(--fg2);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .skills-section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 600;
+    margin-bottom: 3rem;
+  }
+  .skill-groups { display: flex; flex-direction: column; gap: 2.5rem; }
+  .skill-group-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    margin-bottom: 0.75rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    border: 1px solid var(--border);
+    color: var(--fg2);
+    background: var(--bg3);
+    transition: all 0.15s;
+    cursor: default;
+  }
+  .tag:hover { border-color: var(--accent-mid); color: var(--accent); background: var(--accent-dim); }
+  .tag.highlight { border-color: var(--accent-mid); color: var(--accent); }
+
+  /* ── PROJECTS ── */
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg2);
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .project-card:hover { border-color: var(--fg3); transform: translateY(-2px); }
+  .project-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--fg);
+    line-height: 1.3;
+  }
+  .project-desc { font-size: 0.85rem; color: var(--fg2); font-weight: 300; line-height: 1.7; flex: 1; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; }
+  .project-stack span {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    background: var(--bg3);
+    color: var(--fg3);
+    border: 1px solid var(--border);
+  }
+
+  /* ── PUBLICATIONS ── */
+  #publications { background: var(--bg2); border-top: 1px solid var(--border); }
+  .pub-card {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg3);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .pub-icon {
+    width: 44px; height: 44px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-mid);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pub-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+  .pub-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+  .pub-meta { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 4rem clamp(1.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-left { font-family: var(--serif); font-size: 1.2rem; }
+  .footer-left span { color: var(--accent); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-size: 0.8rem; color: var(--fg3); text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-copy { font-size: 0.75rem; color: var(--fg3); width: 100%; text-align: center; padding-top: 1rem; border-top: 1px solid var(--border); font-family: var(--mono); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-stats { flex-direction: row; flex-wrap: wrap; }
+    .stat { flex: 1 1 140px; }
+    .nav-links { display: none; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .pub-card { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-
 <body>
 
+<nav>
+  <a href="#hero" class="nav-logo">OG<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Publications</a></li>
+  </ul>
+</nav>
 
-  <header class="navigation fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <!-- <a class="navbar-brand font-tertiary h3" href="index.html"><img src="" height="100px" alt="@omprakash201194"></a> -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<section id="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Lead Backend Engineer · Pune, India</p>
+    <h1 class="hero-name">Omprakash<br><em>Gautam</em></h1>
+    <p class="hero-tagline">9+ years building distributed SaaS platforms in the cybersecurity space. I architect microservices, tame Kafka streams, and scale systems that serve 10,000+ customers globally.</p>
+    <div class="hero-actions">
+      <a href="mailto:omprakash201194@gmail.com" class="btn btn-primary">Say hello →</a>
+      <a href="https://www.linkedin.com/in/omprakash-gautam-20" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn</a>
+      <a href="https://github.com/omprakash201194" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">scroll</div>
+</section>
 
-      <div class="collapse navbar-collapse text-center" id="navigation">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about">about</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#skills">Skills</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#experience">Experience</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#education">Education</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#recommendation">Testimonial</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact">Contact</a>
-          </li>
-        </ul>
+<section id="about">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p class="section-label">About me</p>
+        <h2>Distributed systems guy who loves a hard problem.</h2>
+        <p>I'm a Lead Backend Engineer at Qualys, where I lead middleware architecture for the Enterprise TruRisk Management (ETM) platform — building 8–10 Spring Boot microservices from the ground up and mentoring a team of 8 engineers.</p>
+        <p>My sweet spot is the intersection of scale, reliability and security. I've spent years working on multi-tenant SaaS platforms, Kafka-based event pipelines, Elasticsearch-heavy search frameworks, and Redis-backed distributed caching systems.</p>
+        <p>Outside of work I write about engineering on my <a href="https://omprakashgautam.com/blogs" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">blog</a> and occasionally publish research on distributed computing.</p>
       </div>
-    </nav>
-  </header>
-
-  <!-- hero area -->
-  <section class="hero-area bg-primary" id="parallax">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-11 mx-auto">
-          <h1 class="text-white font-tertiary">Hi! I’m <br> Omprakash <br>Software Engineer</h1>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">9+</div>
+          <div class="stat-label">Years of professional experience</div>
         </div>
-      </div>
-    </div>
-    <div class="layer-bg w-100">
-      <img class="img-fluid w-100" src="images/illustrations/leaf-bg.png" alt="bg-shape">
-    </div>
-    <div class="layer" id="l2">
-      <img src="images/illustrations/dots-cyan.png" alt="bg-shape">
-    </div>
-    <div class="layer" id="l3">
-      <img src="images/illustrations/leaf-orange.png" alt="bg-shape">
-    </div>
-    <div class="layer" id="l4">
-      <img src="images/illustrations/dots-orange.png" alt="bg-shape">
-    </div>
-    <div class="layer" id="l5">
-      <img src="images/illustrations/leaf-yellow.png" alt="bg-shape">
-    </div>
-    <div class="layer" id="l6">
-      <img src="images/illustrations/leaf-cyan.png" alt="bg-shape">
-    </div>
-    <div class="layer" id="l7">
-      <img src="images/illustrations/dots-group-orange.png" alt="bg-shape">
-    </div>
-    <div class="layer" id="l8">
-      <img src="images/illustrations/leaf-pink-round.png" alt="bg-shape">
-    </div>
-    <div class="layer" id="l9">
-      <img src="images/illustrations/leaf-cyan-2.png" alt="bg-shape">
-    </div>
-    <!-- social icon -->
-    <ul id="about" class="list-unstyled ml-5 mt-3 position-relative zindex-1">
-      <li class="mb-3"><a class="text-white" href="https://www.facebook.com/omprakash201194/"><i
-            class="ti-facebook"></i></a></li>
-      <li class="mb-3"><a class="text-white" href="https://www.instagram.com/gautam.om_/"><i
-            class="ti-instagram"></i></a></li>
-      <li class="mb-3"><a class="text-white" href="https://www.linkedin.com/in/omprakash-gautam-20/"><i
-            class="ti-linkedin"></i></a></li>
-      <li class="mb-3"><a class="text-white" href="https://twitter.com/omprakash201194"><i class="ti-twitter"></i></a>
-      </li>
-    </ul>
-    <!-- /social icon -->
-  </section>
-  <!-- /hero area -->
-
-  <!-- about -->
-
-  <section class="section pt-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <p>Hello, my name is Omprakash, and I work at <a href="https://www.qualys.com/"
-              class="link-primary">Qualys</a>
-            as a Full Stack Software Engineer 🧑‍💻</p>
-          <p>I graduated 👨‍🎓 from Pune University with a bachelor's degree in Computer science engineering.</p>
-          <p>My primary areas of interest are software engineering & technology.</p>
-          <p>
-            Working as a Backend Software Engineer on a next-generation scalable cloud micro-service-based vulnerability
-            management,
-            detection, and response application (VMDR).
-          </p>
-          <p>An enthusiastic developer with a knack for learning new things. I'm really interested in data-intensive
-            systems and
-            solving difficult challenges.</p>
-          <p>
-            I'm always on the lookout for intriguing open source projects for collaboration.
-          </p>
+        <div class="stat">
+          <div class="stat-num">10K+</div>
+          <div class="stat-label">Global customers served via VMDR</div>
         </div>
-        <div class="col-md-4 text-center drag-lg-top">
-          <div class="shadow-down mb-4">
-            <img src="images/about/author.png" border-radius="50%" alt="author"
-              class="img-fluid w-100 rounded-lg border-thick border-white">
-          </div>
-          <h4>Omprakash Gautam</h4>
+        <div class="stat">
+          <div class="stat-num">130+</div>
+          <div class="stat-label">Countries reached by platform</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Engineers mentored on middleware team</div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- /about -->
+  </div>
+</section>
 
-  <!-- skills -->
-  <section id="skills" class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-title">Skills</h2>
-        </div>
-        <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-          <div class="card shadow text-center">
-            <div class="position-relative rounded-top progress-wrapper" data-color="#bdecf6">
-              <div class="wave" data-progress="80%"></div>
-            </div>
-            <div class="card-footer bg-white">
-              <h4 class="card-title">Java</h4>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-          <div class="card shadow text-center">
-            <div class="position-relative rounded-top progress-wrapper" data-color="#fdb157">
-              <div class="wave" data-progress="90%"></div>
-            </div>
-            <div class="card-footer bg-white">
-              <h4 class="card-title">Data Structures & Algorithms</h4>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-          <div class="card shadow text-center">
-            <div class="position-relative rounded-top progress-wrapper" data-color="#ffbcaa">
-              <div class="wave" data-progress="70%"></div>
-            </div>
-            <div class="card-footer bg-white">
-              <h4 class="card-title">Spring Boot</h4>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-          <div class="card shadow text-center">
-            <div class="position-relative rounded-top progress-wrapper" data-color="#9473e6">
-              <div class="wave" data-progress="60%"></div>
-            </div>
-            <div class="card-footer bg-white">
-              <h4 class="card-title">SQL</h4>
-            </div>
-          </div>
+<section id="experience">
+  <div class="container">
+    <p class="section-label reveal">Experience</p>
+    <div class="timeline">
+
+      <div class="exp-group reveal">
+        <div class="exp-company">
+          Qualys
+          <span class="exp-company-tenure">6 yrs 7 mo</span>
         </div>
 
-
-      </div>
-    </div>
-  </section>
-  <!-- /skills -->
-
-  <!-- experience -->
-  <section id="experience" class="section">
-    <div class="container">
-      <div class="row justify-content-around">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-title">Experience</h2>
-        </div>=<div class="col-lg-3 col-md-4 text-center">
-          <img src="images/experience/icon-1.png" alt="icon">
-          <p class="mb-0">Sept 2016 - Sept 2018</p>
-          <h4>Software Engineer</h4>
-          <h6 class="text-light">Persistent Systems Limited</h6>
+        <div class="exp-role">
+          <div class="exp-role-title">Lead Software Engineer</div>
+          <div class="exp-role-period">May 2024 — Present · Pune, India</div>
+          <div class="exp-role-desc">Leading middleware architecture for the Enterprise TruRisk Management (ETM) platform. Built 8–10 Spring Boot microservices from scratch. Drive architecture discussions, design reviews, and production reliability efforts. Mentor 8 engineers across the middleware team.</div>
         </div>
-        <div class="col-lg-3 col-md-4 text-center">
-          <img src="images/experience/icon-2.png" alt="icon">
-          <p class="mb-0">Oct 2018 - Sept 2019</p>
-          <h4>Senior Software Engineer</h4>
-          <h6 class="text-light">Persistent Systems Limited</h6>
+
+        <div class="exp-role">
+          <div class="exp-role-title">Senior Full Stack Engineer</div>
+          <div class="exp-role-period">Oct 2021 — May 2024 · 2 yrs 8 mo</div>
+          <div class="exp-role-desc">End-to-end microservice-based product development across VMDR and Unified Dashboard — from requirement analysis through production release. Contributed to platform serving 10,000+ customers across 130+ countries.</div>
         </div>
-        <div class="col-lg-3 col-md-4 text-center">
-          <img src="images/experience/icon-3.png" alt="icon">
-          <p class="mb-0">Oct 2019 - Present</p>
-          <h4>Full Stack Software Engineer</h4>
-          <h6 class="text-light">Qualys</h6>
+
+        <div class="exp-role">
+          <div class="exp-role-title">Full Stack Engineer</div>
+          <div class="exp-role-period">Oct 2019 — Sep 2021 · 2 yrs</div>
+          <div class="exp-role-desc">Worked across VMDR, Asset View, and Unified Dashboard product lines, handling the full development lifecycle from requirements to release.</div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- ./experience -->
 
-  <!-- education -->
-  <section id="education" class="section position-relative">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-title">Education</h2>
+      <div class="exp-group reveal">
+        <div class="exp-company">
+          Persistent Systems
+          <span class="exp-company-tenure">3 yrs 1 mo</span>
         </div>
-        <div class="col-lg-6 col-md-6 mb-80">
-          <div class="d-flex">
-            <div class="mr-lg-5 mr-3">
-              <i class="ti-medall icon icon-light icon-bg bg-white shadow rounded-circle d-block"></i>
-            </div>
-            <div>
-              <p class="text-dark mb-1">2016</p>
-              <h4>Bachelor in Computer Engineering</h4>
-              <p class="mb-0 text-light">University of Pune</p>
-            </div>
-          </div>
+
+        <div class="exp-role">
+          <div class="exp-role-title">Module Lead</div>
+          <div class="exp-role-period">Jul 2019 — Sep 2019 · Pune, India</div>
+          <div class="exp-role-desc">Led end-to-end product development for the Ignite platform using Agile. Identity Management via Oracle OIM Java APIs. Drove root cause analysis and product optimization.</div>
         </div>
-        <div class="col-lg-6 col-md-6 mb-80">
-          <div class="d-flex">
-            <div class="mr-lg-5 mr-3">
-              <i class="ti-medall icon icon-light icon-bg bg-white shadow rounded-circle d-block"></i>
-            </div>
-            <div>
-              <p class="text-dark mb-1">2012</p>
-              <h4>Higher Secondary School</h4>
-              <p class="mb-0 text-light">CBSE</p>
-            </div>
-          </div>
+
+        <div class="exp-role">
+          <div class="exp-role-title">Senior Software Engineer</div>
+          <div class="exp-role-period">Jul 2018 — Jun 2019 · 1 yr</div>
+          <div class="exp-role-desc">Designed, developed, tested and maintained product features. Identity Management using Oracle OIM Java APIs. Facilitated root cause analysis of application issues.</div>
+        </div>
+
+        <div class="exp-role">
+          <div class="exp-role-title">Software Engineer</div>
+          <div class="exp-role-period">Sep 2016 — Jun 2018 · 1 yr 10 mo</div>
+          <div class="exp-role-desc">Identity Management using Oracle's OIM Java APIs as part of the Persistent Systems engineering team.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <p class="section-label reveal">Tech Stack</p>
+    <h2 class="skills-section-title reveal">Tools I think<br>in.</h2>
+    <div class="skill-groups reveal">
+      <div>
+        <div class="skill-group-label">Core</div>
+        <div class="skill-tags">
+          <span class="tag highlight">Java</span>
+          <span class="tag highlight">Spring Boot</span>
+          <span class="tag highlight">Microservices</span>
+          <span class="tag highlight">REST APIs</span>
+          <span class="tag">C</span>
+          <span class="tag">C++</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Distributed Systems & Data</div>
+        <div class="skill-tags">
+          <span class="tag highlight">Apache Kafka</span>
+          <span class="tag highlight">Elasticsearch</span>
+          <span class="tag highlight">Redis</span>
+          <span class="tag">Event-Driven Architecture</span>
+          <span class="tag">Distributed Caching</span>
+          <span class="tag">Distributed Locking</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Architecture & Platform</div>
+        <div class="skill-tags">
+          <span class="tag highlight">Multi-Tenant SaaS</span>
+          <span class="tag highlight">Cybersecurity Platforms</span>
+          <span class="tag">Oracle OIM</span>
+          <span class="tag">Identity Management</span>
+          <span class="tag">Agile / Scrum</span>
+          <span class="tag">Architecture Reviews</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Soft Skills</div>
+        <div class="skill-tags">
+          <span class="tag">Team Leadership</span>
+          <span class="tag">Mentorship</span>
+          <span class="tag">Technical Writing</span>
+          <span class="tag">Teamwork</span>
         </div>
       </div>
     </div>
-    <!-- bg image -->
-    <img class="img-fluid edu-bg-image w-100" src="images/backgrounds/education-bg.png" alt="bg-image">
-  </section>
-  <!-- /education -->
+  </div>
+</section>
 
-  <!-- services -->
-  <!-- <section class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h2 class="section-title">Services</h2>
-        </div>
-        <div class="col-md-4 mb-4 mb-md-0">
-          <div class="card hover-shadow shadow">
-            <div class="card-body text-center px-4 py-5">
-              <i class="ti-palette icon mb-5 d-inline-block"></i>
-              <h4 class="mb-4">UI Design</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4 mb-md-0">
-          <div class="card active-bg-primary hover-shadow shadow">
-            <div class="card-body text-center px-4 py-5">
-              <i class="ti-vector icon mb-5 d-inline-block"></i>
-              <h4 class="mb-4">UX Design</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4 mb-md-0">
-          <div class="card hover-shadow shadow">
-            <div class="card-body text-center px-4 py-5">
-              <i class="ti-panel icon mb-5 d-inline-block"></i>
-              <h4 class="mb-4">Interaction Design</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.</p>
-            </div>
-          </div>
+<section id="projects">
+  <div class="container">
+    <p class="section-label reveal">Projects</p>
+    <h2 class="skills-section-title reveal" style="margin-bottom:2.5rem">Things I've<br>shipped.</h2>
+    <div class="project-grid reveal">
+
+      <div class="project-card" style="cursor:default">
+        <div class="project-num">01</div>
+        <div class="project-title">ETM Middleware Platform</div>
+        <div class="project-desc">Built 8–10 Spring Boot microservices from scratch for Qualys' Enterprise TruRisk Management platform — handling risk aggregation, event routing, and multi-tenant data isolation at scale.</div>
+        <div class="project-stack">
+          <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Elasticsearch</span><span>Redis</span>
         </div>
       </div>
-    </div>
-  </section> -->
-  <!-- /services -->
 
-  <!-- portfolio -->
-  <!-- <section class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h2 class="section-title">Portfolio</h2>
+      <div class="project-card" style="cursor:default">
+        <div class="project-num">02</div>
+        <div class="project-title">VMDR Global Platform</div>
+        <div class="project-desc">Contributed to Vulnerability Management, Detection &amp; Response modules serving 10,000+ global customers across 130+ countries. Full-stack involvement from requirements through release.</div>
+        <div class="project-stack">
+          <span>Java</span><span>Microservices</span><span>SaaS</span><span>REST</span>
         </div>
       </div>
-      <div class="row shuffle-wrapper">
-        <div class="col-lg-4 col-6 mb-4 shuffle-item">
-          <div class="position-relative rounded hover-wrapper">
-            <img src="images/portfolio/item-1.png" alt="portfolio-image" class="img-fluid rounded w-100">
-            <div class="hover-overlay">
-              <div class="hover-content">
-                <a class="btn btn-light btn-sm" href="project-single.html">view project</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-6 mb-4 shuffle-item">
-          <div class="position-relative rounded hover-wrapper">
-            <img src="images/portfolio/item-2.png" alt="portfolio-image" class="img-fluid rounded w-100">
-            <div class="hover-overlay">
-              <div class="hover-content">
-                <a class="btn btn-light btn-sm" href="project-single.html">view project</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-6 mb-4 shuffle-item">
-          <div class="position-relative rounded hover-wrapper">
-            <img src="images/portfolio/item-3.png" alt="portfolio-image" class="img-fluid rounded w-100">
-            <div class="hover-overlay">
-              <div class="hover-content">
-                <a class="btn btn-light btn-sm" href="project-single.html">view project</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-6 mb-4 shuffle-item">
-          <div class="position-relative rounded hover-wrapper">
-            <img src="images/portfolio/item-4.png" alt="portfolio-image" class="img-fluid rounded w-100">
-            <div class="hover-overlay">
-              <div class="hover-content">
-                <a class="btn btn-light btn-sm" href="project-single.html">view project</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-6 mb-4 shuffle-item">
-          <div class="position-relative rounded hover-wrapper">
-            <img src="images/portfolio/item-5.png" alt="portfolio-image" class="img-fluid rounded w-100">
-            <div class="hover-overlay">
-              <div class="hover-content">
-                <a class="btn btn-light btn-sm" href="project-single.html">view project</a>
-              </div>
-            </div>
-          </div>
+
+      <div class="project-card" style="cursor:default">
+        <div class="project-num">03</div>
+        <div class="project-title">Unified Dashboard</div>
+        <div class="project-desc">Built data aggregation and visualization layers for Qualys' Unified Dashboard, consolidating cross-product security telemetry into a single pane of glass for enterprise security teams.</div>
+        <div class="project-stack">
+          <span>Elasticsearch</span><span>Spring Boot</span><span>Kafka</span>
         </div>
       </div>
-    </div>
-  </section> -->
-  <!-- /portfolio -->
 
-  <!-- testimonial -->
-  <section id="recommendation" class="section bg-primary position-relative testimonial-bg-shapes">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h2 class="section-title text-white mb-5">Recommendation</h2>
+      <a href="projects/dom-array-methods.html" class="project-card">
+        <div class="project-num">04</div>
+        <div class="project-title">Vanilla JS Experiments</div>
+        <div class="project-desc">A small collection of hand-rolled JS mini-projects — DOM array methods, a custom video player, an exchange-rate calculator, form validation, and a movie seat selector.</div>
+        <div class="project-stack">
+          <span>HTML</span><span>CSS</span><span>Vanilla JS</span>
         </div>
-        <div class="col-lg-10 mx-auto testimonial-slider">
-          <!-- slider-item -->
-          <div class="text-center testimonial-content">
-            <i class="ti-quote-right text-white icon mb-4 d-inline-block"></i>
-            <p class="text-white mb-4">Working with Omprakash is an experience to cherish and learn. He has very good
-              technical, analytical and communication
-              skills. He is great team player and technology expert. He is always ready to help and stretch himself.
-              Great person to
-              have in a team.</p>
-            <img class="img-fluid rounded-circle mb-4 d-inline-block" src="images/testimonial/ganesh.jpg"
-              alt="client-image">
-            <h4 class="text-white">Ganesh Phirke</h4>
-            <h6 class="text-light mb-4">Front End Software Engineer at Qualys</h6>
-          </div>
-          <!-- slider-item -->
-          <div class="text-center testimonial-content">
-            <i class="ti-quote-right text-white icon mb-4 d-inline-block"></i>
-            <p class="text-white mb-4">Discussing problems with Omprakash is always a learning experience. His top-down
-              approach to tackling complex tasks is
-              something to learn from. Highly inquisitive. Not to forget the helpful nature which fully reflects his
-              team-mindedness.
-              Great colleague to have!</p>
-            <img class="img-fluid rounded-circle mb-4 d-inline-block" src="images/testimonial/ashutosh.jpg"
-              alt="client-image">
-            <h4 class="text-white">Ashutosh Thakur</h4>
-            <h6 class="text-light mb-4">Senior Software Engineer at Qualys</h6>
-          </div>
-          <!-- slider-item -->
-          <!-- <div class="text-center testimonial-content">
-            <i class="ti-quote-right text-white icon mb-4 d-inline-block"></i>
-            <p class="text-white mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <strong>quis nostrud exercitation
-                ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.</strong> Duis aute irure dolor in reprehenderit in
-              voluptate velit
-              esse cillum dolore eu fugiat nulla pariatur.</p>
-            <img class="img-fluid rounded-circle mb-4 d-inline-block" src="images/testimonial/client-1.png"
-              alt="client-image">
-            <h4 class="text-white">Jesica Gomez</h4>
-            <h6 class="text-light mb-4">CEO, Funder</h6>
-          </div> -->
-        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="container">
+    <p class="section-label reveal">Publications</p>
+    <h2 class="skills-section-title reveal" style="margin-bottom:2.5rem">Research &amp;<br>Writing.</h2>
+    <div class="pub-card reveal">
+      <div class="pub-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div>
+        <div class="pub-title">Acceleration of CUDA programs for non-GPU users using Cloud</div>
+        <div class="pub-meta">Research Publication · Distributed Computing &amp; Cloud GPU Virtualisation</div>
       </div>
     </div>
-    <!-- bg shapes -->
-    <img src="images/backgrounds/map.png" alt="map" class="img-fluid bg-map">
-    <img src="images/illustrations/dots-group-v.png" alt="bg-shape" class="img-fluid bg-shape-1">
-    <img src="images/illustrations/leaf-orange.png" alt="bg-shape" class="img-fluid bg-shape-2">
-    <img src="images/illustrations/dots-group-sm.png" alt="bg-shape" class="img-fluid bg-shape-3">
-    <img src="images/illustrations/leaf-pink-round.png" alt="bg-shape" class="img-fluid bg-shape-4">
-    <img src="images/illustrations/leaf-cyan.png" alt="bg-shape" class="img-fluid bg-shape-5">
-  </section>
-  <!-- /testimonial -->
+  </div>
+</section>
 
-  <!-- client logo slider -->
-  <!-- <section class="section pb-0">
-    <div class="container">
-      <div class="client-logo-slider d-flex align-items-center">
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-1.png" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-2.png" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-3.png" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-4.png" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-5.png" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-1.png" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-2.png" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-3.png" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-4.png" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-4"><img class="d-unset img-fluid"
-            src="images/clients-logo/client-logo-5.png" alt="client-logo"></a>
-      </div>
-    </div>
-  </section> -->
-  <!-- /client logo slider -->
+<footer>
+  <div class="footer-left">Omprakash <span>Gautam</span></div>
+  <div class="footer-links">
+    <a href="mailto:omprakash201194@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/omprakash-gautam-20" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://omprakashgautam.com/blogs" target="_blank" rel="noopener">Blog</a>
+    <a href="https://github.com/omprakash201194" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <div class="footer-copy">© 2026 Omprakash Gautam — Lead Backend Engineer</div>
+</footer>
 
-  <!-- blog -->
-  <!-- <section class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h2 class="section-title">Blogs</h2>
-        </div>
-        <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-          <article class="card shadow">
-            <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
-            <div class="card-body">
-              <h4 class="card-title"><a class="text-dark" href="blog-single.html">Amazon increase income 1.5 Million</a>
-              </h4>
-              <p class="cars-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et
-                dolore magna aliqua.</p>
-              <a href="blog-single.html" class="btn btn-xs btn-primary">Read More</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-          <article class="card shadow">
-            <img class="rounded card-img-top" src="images/blog/post-4.jpg" alt="post-thumb">
-            <div class="card-body">
-              <h4 class="card-title"><a class="text-dark" href="blog-single.html">Amazon increase income 1.5 Million</a>
-              </h4>
-              <p class="cars-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et
-                dolore magna aliqua.</p>
-              <a href="blog-single.html" class="btn btn-xs btn-primary">Read More</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-          <article class="card shadow">
-            <img class="rounded card-img-top" src="images/blog/post-2.jpg" alt="post-thumb">
-            <div class="card-body">
-              <h4 class="card-title"><a class="text-dark" href="blog-single.html">Amazon increase income 1.5 Million</a>
-              </h4>
-              <p class="cars-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et
-                dolore magna aliqua.</p>
-              <a href="blog-single.html" class="btn btn-xs btn-primary">Read More</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section> -->
-  <!-- /blog -->
-
-  <!-- contact -->
-  <!-- <section class="section section-on-footer" data-background="images/backgrounds/bg-dots.png">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h2 class="section-title">Contact Info</h2>
-        </div>
-        <div class="col-lg-8 mx-auto">
-          <div class="bg-white rounded text-center p-5 shadow-down">
-            <h4 class="mb-80">Contact Form</h4>
-            <form action="#" class="row">
-              <div class="col-md-6">
-                <input type="text" id="name" name="name" placeholder="Full Name" class="form-control px-0 mb-4">
-              </div>
-              <div class="col-md-6">
-                <input type="email" id="email" name="email" placeholder="Email Address" class="form-control px-0 mb-4">
-              </div>
-              <div class="col-12">
-                <textarea name="message" id="message" class="form-control px-0 mb-4"
-                  placeholder="Type Message Here"></textarea>
-              </div>
-              <div class="col-lg-6 col-10 mx-auto">
-                <button class="btn btn-primary w-100">send</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
-  <!-- /contact -->
-
-  <!-- footer -->
-  <footer id="contact" class="bg-dark footer-section">
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h5 class="text-light">Email</h5>
-            <p class="text-white paragraph-lg font-secondary">omprakash201194@gmail.com</p>
-          </div>
-          <div class="col-md-6">
-            <h5 class="text-light">Phone</h5>
-            <p class="text-white paragraph-lg font-secondary">+91 8390372013</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="border-top text-center border-dark py-5">
-      <p class="mb-0 text-light">Copyright ©
-        <script>
-          var CurrentYear = new Date().getFullYear()
-          document.write(CurrentYear)
-        </script> a theme by <a href="https://themefisher.com">themefisher.com</a>
-      </p>
-    </div>
-  </footer>
-  <!-- /footer -->
-
-  <!-- jQuery -->
-  <script src="plugins/jQuery/jquery.min.js"></script>
-  <!-- Bootstrap JS -->
-  <script src="plugins/bootstrap/bootstrap.min.js"></script>
-  <!-- slick slider -->
-  <script src="plugins/slick/slick.min.js"></script>
-  <!-- filter -->
-  <script src="plugins/shuffle/shuffle.min.js"></script>
-
-  <!-- Main Script -->
-  <script src="js/script.js"></script>
-
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => io.observe(r));
+</script>
 </body>
-
 </html>
